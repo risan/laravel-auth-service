@@ -11,7 +11,7 @@ Laravel already offers a handy way to provide user authentication functionality.
 
 This package's intention is to replace the `AuthenticatesUsers` trait from your authentication controller. By extracting the authentication logic into a seperate service provider, your authentication controller will be a lot more clean and readable.
 
-This package is only for the latest Laravel 5.2 version and only support the `StatefulGuard` implementation.
+This package is only for the latest Laravel 5.2 version and only supports the `StatefulGuard` implementation.
 
 ## Table of Contents
 
@@ -22,6 +22,13 @@ This package is only for the latest Laravel 5.2 version and only support the `St
   * [Facade Registration](#facade-registration)
   * [Publish Configuration File](#publish-configuration-file)
 * [Configuration](#configuration)
+* [Available Methods](#available-methods)
+  * [Login](#login)
+  * [Logout](#logout)
+* [Basic Usage](#basic-usage)
+* [Implementation in AuthController](#implementation-in-authcontroller)
+  * [Using Facade](#using-facade)
+  * [Without Facade](#without-facade)
 
 ## Dependencies
 
@@ -60,8 +67,8 @@ Once the package has been installed, you need to register package's service prov
 
 ```php
 'providers' => [
-  ...
-  AuthService\AuthServiceProvider::class,
+    ...
+    AuthService\AuthServiceProvider::class,
 
 ],
 ```
@@ -72,13 +79,13 @@ If you would like to use facade to access this package, you need to register the
 
 ```php
 'aliases' => [
-  ...
-  'AuthService' => AuthService\Facades\AuthService::class,
+    ...
+    'AuthService' => AuthService\Facades\AuthService::class,
 
 ],
 ```
 
-With this way, you can access this package using `AuthService` facade.
+This way, you may access the package functionality using `AuthService` facade.
 
 ### Publish Configuration File
 
@@ -89,3 +96,189 @@ php artisan vendor:publish --provider="AuthService\AuthServiceProvider"
 ```
 
 This command will copy a default package's configuration file in `config/authservice.php`.
+
+## Configuration
+
+Once the package's configuration file is published, you may locate the file in `config\authservice.php`. The default configuration file will look like this:
+
+```php
+return [
+    'auth_event_listener_class' => AuthService\AuthEventListener::class,
+    'login_failed_message' => 'Credentials do not match.',
+    'after_login_success_path' => 'protected',
+    'after_logout_success_path' => 'login'
+];
+```
+
+* **auth_event_listener_class**
+
+  This configuration tells the service provider which authentication event listener class to use. By default it will use the provided `AuthService\AuthEventListener` class. However you may also override it with your own event listener implementation as long as it confronts the `AuthService\Contracts\AuthEventListener` interface.
+
+* **login_failed_message**
+
+  This is the error message that will be used when user's credentials is invalid. By default this error message will be flashed out to the session if login is failed.
+
+* **after_login_success_path**
+
+  This is the path where user will be redirected to if he/she successfully logged in.
+
+* **after_logout_success_path**
+
+  This is the path where user will be redirected to if he/she logged out from application.
+
+## Available Methods
+
+### Login
+
+To log the user in, simply call the `login()` method:
+
+```php
+AuthService::login(array $credentials, $remember = false);
+```
+
+This method will attempt to log the user in and will return an instance of `Illuminate\Http\RedirectResponse`.
+
+### Logout
+
+To log the user out, we may use the `logout()` method:
+
+```php
+AuthService::logout();
+```
+
+This method will also return an instance of `Illuminate\Http\RedirectResponse`.
+
+## Basic Usage
+
+Here is some basic example to perform login and logout functionality, assuming that we are using the facade.
+
+```php
+use AuthService;
+
+// Log the user in.
+$credentials = ['email' => 'john@example.com', 'password' => 'secret'];
+AuthService::login($credentials);
+
+// Log the user out.
+AuthService::logout();
+```
+
+## Implementation in AuthController
+
+For a complete implementation, we will create a simple authentication controller that handles the login and logout request.
+
+### Using Facade
+
+```php
+namespace App\Http\Controllers\Auth;
+
+use AuthService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+
+class AuthController extends Controller
+{
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'getLogout']);
+    }
+
+    /**
+     * Show the login page.
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function getLogin()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Handle login request.
+     *
+     * @param  App\Http\Requests\Auth\LoginRequest $request
+     * @return Illuminate\Http\Response
+     */
+    public function postLogin(LoginRequest $request)
+    {
+        $credentials = $request->only(['email', 'password']);
+
+        return AuthService::login($credentials, $request->has('remember'));
+    }
+
+    /**
+     * Log the user out.
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function getLogout()
+    {
+        return AuthService::logout();
+    }
+}
+```
+
+### Without Facade
+
+```php
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use AuthService\Contracts\AuthService as AuthServiceContract;
+
+class AuthController extends Controller
+{
+    protected $authService;
+
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct(AuthServiceContract $authService)
+    {
+        $this->middleware('guest', ['except' => 'getLogout']);
+
+        $this->authService = $authService;
+    }
+
+    /**
+     * Show the login page.
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function getLogin()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Handle login request.
+     *
+     * @param  App\Http\Requests\Auth\LoginRequest $request
+     * @return Illuminate\Http\Response
+     */
+    public function postLogin(LoginRequest $request)
+    {
+        $credentials = $request->only(['email', 'password']);
+
+        return $this->authService->login($credentials, $request->has('remember'));
+    }
+
+    /**
+     * Log the user out.
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function getLogout()
+    {
+        return $this->authService->logout();
+    }
+}
+```
