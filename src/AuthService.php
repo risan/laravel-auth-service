@@ -3,7 +3,7 @@
 namespace AuthService;
 
 use AuthService\Contracts\AuthService as AuthServiceContract;
-use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContrace;
+use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
 use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
 
 class AuthService implements AuthServiceContract
@@ -22,7 +22,7 @@ class AuthService implements AuthServiceContract
      */
     protected $eventListener;
 
-    public function __construct(StatefulGuardContrace $statefulGuard, AuthEventListenerContract $eventListener)
+    public function __construct(StatefulGuardContract $statefulGuard, AuthEventListenerContract $eventListener)
     {
         $this->statefulGuard = $statefulGuard;
         $this->eventListener = $eventListener;
