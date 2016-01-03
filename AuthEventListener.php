@@ -3,8 +3,8 @@
 namespace AuthService;
 
 use Illuminate\Routing\Redirector;
-use AuthService\Contracts\AuthServiceConfig;
 use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
+use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
 
 class AuthEventListener implements AuthEventListenerContract
 {
@@ -26,12 +26,12 @@ class AuthEventListener implements AuthEventListenerContract
      * Create a new instance of AuthEventListener class.
      *
      * @param Illuminate\Routing\Redirector $redirector
-     * @param array $config
+     * @param AuthService\Contracts\AuthServiceConfig $config
      */
-    public function __construct(Redirector $redirector, array $config)
+    public function __construct(Redirector $redirector, AuthServiceConfigContract $config)
     {
         $this->redirector = $redirector;
-        $this->config = AuthServiceConfig::fromArray($config);
+        $this->config = $config;
     }
 
     /**

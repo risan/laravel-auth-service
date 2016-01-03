@@ -31,10 +31,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthEventListener()
     {
-        $this->app->singleton(
-            'AuthService\Contracts\AuthEventListener',
-            'AuthService\AuthEventListener'
-        );
+        $this->app->singleton('AuthService\Contracts\AuthEventListener', function($app) {
+            $config = $app['config']->get('authservice');
+        });
     }
 
     /**
