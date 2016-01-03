@@ -23,14 +23,14 @@ interface AuthService
      *
      * @param  array   $credentials
      * @param  boolean $remember
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function login(array $credentials, $remember = false);
 
     /**
      * Log the user out.
      *
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function logout();
 }

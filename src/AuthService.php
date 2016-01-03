@@ -53,7 +53,7 @@ class AuthService implements AuthServiceContract
      *
      * @param  array   $credentials
      * @param  boolean $remember
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function login(array $credentials, $remember = false)
     {
@@ -67,7 +67,7 @@ class AuthService implements AuthServiceContract
     /**
      * Log the user out.
      *
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function logout()
     {
