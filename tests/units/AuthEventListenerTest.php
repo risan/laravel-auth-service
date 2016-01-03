@@ -40,8 +40,12 @@ class AuthEventListenerTest extends PHPUnit_Framework_TestCase {
     /** @test */
     function auth_event_listener_can_handle_successfull_login()
     {
-        $this->redirector->shouldReceive('intended')->times(1)->andReturn($this->redirectResponse);
-        $this->config->shouldReceive('afterLoginSuccessPath')->times(1);
+        $this->redirector->shouldReceive('intended')
+            ->times(1)
+            ->andReturn($this->redirectResponse);
+
+        $this->config->shouldReceive('afterLoginSuccessPath')
+            ->times(1);
 
         $this->assertInstanceOf(RedirectResponse::class, $this->eventListener->userHasLoggedIn());
     }
@@ -49,10 +53,16 @@ class AuthEventListenerTest extends PHPUnit_Framework_TestCase {
     /** @test */
     function auth_event_listener_can_handle_failed_login()
     {
-        $this->redirector->shouldReceive('back')->times(1)->andReturn($this->redirectResponse);
-        $this->redirectResponse->shouldReceive('exceptInput')->times(1)->andReturn($this->redirectResponse);
-        $this->redirectResponse->shouldReceive('withErrors')->times(1)->andReturn($this->redirectResponse);
-        $this->config->shouldReceive('loginFailedMessage')->times(1);
+        $this->redirector->shouldReceive('back')
+            ->times(1)
+            ->andReturn($this->redirectResponse);
+
+        $this->redirectResponse->shouldReceive('exceptInput', 'withErrors')
+            ->times(1)
+            ->andReturn($this->redirectResponse);
+
+        $this->config->shouldReceive('loginFailedMessage')
+            ->times(1);
 
         $this->assertInstanceOf(RedirectResponse::class, $this->eventListener->userHasFailedToLogIn());
     }
@@ -60,8 +70,12 @@ class AuthEventListenerTest extends PHPUnit_Framework_TestCase {
     /** @test */
     function auth_event_listener_can_handle_successfull_logout()
     {
-        $this->redirector->shouldReceive('to')->times(1)->andReturn($this->redirectResponse);
-        $this->config->shouldReceive('afterLogoutSuccessPath')->times(1);
+        $this->redirector->shouldReceive('to')
+            ->times(1)
+            ->andReturn($this->redirectResponse);
+
+        $this->config->shouldReceive('afterLogoutSuccessPath')
+            ->times(1);
 
         $this->assertInstanceOf(RedirectResponse::class, $this->eventListener->userHasLoggedOut());
     }
