@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthEventListener()
     {
-        $this->app->bind(
+        $this->app->singleton(
             'AuthService\Contracts\AuthEventListener',
             'AuthService\AuthEventListener'
         );
@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthService()
     {
-        $this->app->bind('AuthService\Contracts\AuthService', function($app) {
+        $this->app->singleton('AuthService\Contracts\AuthService', function($app) {
             $statefulGuard = $app['auth']->guard();
             $eventListener = $app->make('AuthService\Contracts\AuthEventListener');
 
