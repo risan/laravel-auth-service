@@ -14,6 +14,18 @@ class AuthServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+     * Perform post-registration booting of services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/../config/authservice.php' => config_path('authservice.php')
+        ], 'config');
+    }
+
+    /**
      * Register the service provider.
      *
      * @return void
