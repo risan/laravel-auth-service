@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthServiceConfig()
     {
-        $this->app->singleton('AuthService\Contracts\AuthServiceConfig', function($app) {
+        $this->app->singleton('AuthService\Contracts\AuthServiceConfig', function ($app) {
             return \AuthService\AuthServiceConfig::fromArray($app['config']->get('authservice'));
         });
     }
@@ -56,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthEventListener()
     {
-        $this->app->singleton('AuthService\Contracts\AuthEventListener', function($app) {
+        $this->app->singleton('AuthService\Contracts\AuthEventListener', function ($app) {
             $redirector = $app['redirect'];
             $config = $app->make('AuthService\Contracts\AuthServiceConfig');
             $eventListenerClass = $config->authEventListenerClass();
@@ -72,7 +72,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthService()
     {
-        $this->app->singleton('AuthService\Contracts\AuthService', function($app) {
+        $this->app->singleton('AuthService\Contracts\AuthService', function ($app) {
             $statefulGuard = $app['auth']->guard();
             $eventListener = $app->make('AuthService\Contracts\AuthEventListener');
 
