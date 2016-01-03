@@ -2,67 +2,90 @@
 
 namespace AuthService;
 
+use Illuminate\Routing\Redirector;
+use AuthService\Contracts\AuthServiceConfig;
 use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
-use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
 
 class AuthEventListener implements AuthEventListenerContract
 {
     /**
-     * Response factory instance.
+     * Redirector instance.
      *
-     * @var Illuminate\Contracts\Routing\ResponseFactory
+     * @var Illuminate\Routing\Redirector
      */
-    protected $response;
+    protected $redirector;
+
+    /**
+     * AuthServiceConfig instance.
+     *
+     * @var AuthService\Contracts\AuthServiceConfig
+     */
+    protected $config;
 
     /**
      * Create a new instance of AuthEventListener class.
      *
-     * @param Illuminate\Contracts\Routing\ResponseFactory $response
+     * @param Illuminate\Routing\Redirector $redirector
+     * @param array $config
      */
-    public function __construct(ResponseFactoryContract $response)
+    public function __construct(Redirector $redirector, array $config)
     {
-        $this->response = $response;
+        $this->redirector = $redirector;
+        $this->config = AuthServiceConfig::fromArray($config);
     }
 
     /**
-     * Get response factory instance.
+     * Get redirector instance.
      *
-     * @return Illuminate\Contracts\Routing\ResponseFactory
+     * @return Illuminate\Routing\Redirector
      */
-    public function response()
+    public function redirector()
     {
-        return $this->response;
+        return $this->redirector;
+    }
+
+    /**
+     * Get AuthServiceConfig instance.
+     *
+     * @return AuthService\Contracts\AuthServiceConfig
+     */
+    public function config()
+    {
+        return $this->config;
     }
 
     /**
      * User has logged in successfully.
      *
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function userHasLoggedIn()
     {
-        return $this->response()->redirectTo('protected');
+        return $this->redirector()
+            ->intended($this->config()->afterLoginSuccessPath());
     }
 
     /**
      * User has failed to login.
      *
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function userHasFailedToLogIn()
     {
-        return $this->response()->redirectTo('login')
+        return $this->redirector()
+            ->back()
             ->exceptInput('password')
-            ->withErrors('Credentials do not match.');
+            ->withErrors([$this->config()->loginFailedMessage()]);
     }
 
     /**
      * User has logged out successfully.
      *
-     * @return Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function userHasLoggedOut()
     {
-        return $this->response()->redirectTo('login');
+        return $this->redirector()
+            ->to($this->config()->afterLogoutSuccessPath());
     }
 }
