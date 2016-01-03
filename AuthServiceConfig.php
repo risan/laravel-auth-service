@@ -8,6 +8,13 @@ use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
 class AuthServiceConfig implements AuthServiceConfigContract
 {
     /**
+     * Authentication event listener class.
+     *
+     * @var string
+     */
+    protected $authEventListenerClass;
+
+    /**
      * Login failed message.
      *
      * @var string
@@ -31,15 +38,27 @@ class AuthServiceConfig implements AuthServiceConfigContract
     /**
      * Create a new instance of AuthServiceConfig class.
      *
+     * @param string $authEventListenerClass
      * @param string $loginFailedMessage
      * @param string $afterLoginSuccessPath
      * @param string $afterLogoutSuccessPath
      */
-    public function __construct($loginFailedMessage, $afterLoginSuccessPath, $afterLogoutSuccessPath)
+    public function __construct($authEventListenerClass, $loginFailedMessage, $afterLoginSuccessPath, $afterLogoutSuccessPath)
     {
+        $this->authEventListenerClass = $authEventListenerClass;
         $this->loginFailedMessage = $loginFailedMessage;
         $this->afterLoginSuccessPath = $afterLoginSuccessPath;
         $this->afterLogoutSuccessPath = $afterLogoutSuccessPath;
+    }
+
+    /**
+     * Get authentication event listener class.
+     *
+     * @return string
+     */
+    public function authEventListenerClass()
+    {
+        return $this->authEventListenerClass;
     }
 
     /**
@@ -81,6 +100,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
     public static function fromArray(array $config)
     {
         $requiredParams = [
+            'auth_event_listener_class',
             'login_failed_message',
             'after_login_success_path',
             'after_logout_success_path'
@@ -93,6 +113,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
         }
 
         return new static(
+            $config['auth_event_listener_class'],
             $config['login_failed_message'],
             $config['after_login_success_path'],
             $config['after_logout_success_path']

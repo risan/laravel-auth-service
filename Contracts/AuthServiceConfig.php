@@ -5,6 +5,13 @@ namespace AuthService\Contracts;
 interface AuthServiceConfig
 {
     /**
+     * Authentication event listener class.
+     *
+     * @return string
+     */
+    public function authEventListenerClass();
+
+    /**
      * Get login failed message.
      *
      * @return string
