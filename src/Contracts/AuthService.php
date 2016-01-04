@@ -22,7 +22,7 @@ interface AuthService
      * Log the user in.
      *
      * @param  array   $credentials
-     * @param  boolean $remember
+     * @param  bool $remember
      * @return Illuminate\Http\RedirectResponse
      */
     public function login(array $credentials, $remember = false);

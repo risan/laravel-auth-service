@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/authservice.php' => config_path('authservice.php')
+            __DIR__.'/../config/authservice.php' => config_path('authservice.php'),
         ], 'config');
     }
 
@@ -90,7 +90,7 @@ class AuthServiceProvider extends ServiceProvider
         return [
             'AuthService\Contracts\AuthServiceConfig',
             'AuthService\Contracts\AuthEventListener',
-            'AuthService\Contracts\AuthService'
+            'AuthService\Contracts\AuthService',
         ];
     }
 }

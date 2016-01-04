@@ -103,7 +103,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
             'auth_event_listener_class',
             'login_failed_message',
             'after_login_success_path',
-            'after_logout_success_path'
+            'after_logout_success_path',
         ];
 
         foreach ($requiredParams as $param) {
