@@ -5,7 +5,8 @@ use Symfony\CS\FixerInterface;
 use Symfony\CS\Finder\DefaultFinder;
 
 $finder = DefaultFinder::create()
-    ->in(__DIR__ . '/src');
+    ->in(__DIR__ . '/src')
+    ->in(__DIR__ . '/config');
 
 $fixers = [
     'blankline_after_open_tag',
