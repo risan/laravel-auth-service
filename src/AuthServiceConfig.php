@@ -108,7 +108,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
         ];
 
         foreach ($requiredParams as $param) {
-            if (!isset($config[$param])) {
+            if (! isset($config[$param])) {
                 throw new InvalidArgumentException("Missing auth service configuration: $param.");
             }
         }

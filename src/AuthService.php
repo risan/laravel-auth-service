@@ -64,7 +64,7 @@ class AuthService implements AuthServiceContract
      */
     public function login(array $credentials, $remember = false)
     {
-        if (!$this->statefulGuard()->attempt($credentials, $remember)) {
+        if (! $this->statefulGuard()->attempt($credentials, $remember)) {
             return $this->eventListener()->userHasFailedToLogIn();
         }
 
