@@ -22,6 +22,12 @@ class AuthService implements AuthServiceContract
      */
     protected $eventListener;
 
+    /**
+     * Create a new instance of AuthService class.
+     *
+     * @param Illuminate\Contracts\Auth\StatefulGuard $statefulGuard
+     * @param AuthService\Contracts\AuthEventListener $eventListener
+     */
     public function __construct(StatefulGuardContract $statefulGuard, AuthEventListenerContract $eventListener)
     {
         $this->statefulGuard = $statefulGuard;
