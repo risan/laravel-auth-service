@@ -36,6 +36,7 @@ interface AuthServiceConfig
      * Create an instance of AuthServiceConfig from array.
      *
      * @param  array $config
+     *
      * @return AuthService\Contracts\AuthServiceConfig
      */
     public static function fromArray(array $config);

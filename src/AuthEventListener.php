@@ -2,9 +2,9 @@
 
 namespace AuthService;
 
-use Illuminate\Routing\Redirector;
 use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
 use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
+use Illuminate\Routing\Redirector;
 
 class AuthEventListener implements AuthEventListenerContract
 {

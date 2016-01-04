@@ -2,8 +2,8 @@
 
 namespace AuthService;
 
-use InvalidArgumentException;
 use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
+use InvalidArgumentException;
 
 class AuthServiceConfig implements AuthServiceConfigContract
 {
@@ -95,6 +95,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
      * Create an instance of AuthServiceConfig from array.
      *
      * @param  array $config
+     *
      * @return AuthService\Contracts\AuthServiceConfig
      */
     public static function fromArray(array $config)
@@ -107,7 +108,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
         ];
 
         foreach ($requiredParams as $param) {
-            if (! isset($config[$param])) {
+            if (!isset($config[$param])) {
                 throw new InvalidArgumentException("Missing auth service configuration: $param.");
             }
         }

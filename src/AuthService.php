@@ -2,9 +2,9 @@
 
 namespace AuthService;
 
+use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
 use AuthService\Contracts\AuthService as AuthServiceContract;
 use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
-use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
 
 class AuthService implements AuthServiceContract
 {
@@ -53,11 +53,12 @@ class AuthService implements AuthServiceContract
      *
      * @param  array   $credentials
      * @param  bool $remember
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function login(array $credentials, $remember = false)
     {
-        if (! $this->statefulGuard()->attempt($credentials, $remember)) {
+        if (!$this->statefulGuard()->attempt($credentials, $remember)) {
             return $this->eventListener()->userHasFailedToLogIn();
         }
 
