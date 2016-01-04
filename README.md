@@ -2,6 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/risan/laravel-auth-service.svg?style=flat-square)](https://travis-ci.org/risan/laravel-auth-service)
 [![HHVM Tested](https://img.shields.io/hhvm/risan/laravel-auth-service.svg?style=flat-square)](https://travis-ci.org/risan/laravel-auth-service)
+[![StyleCI](https://styleci.io/repos/48929918/shield?style=flat-square)](https://styleci.io/repos/48929918)
 [![Latest Stable Version](https://img.shields.io/packagist/v/risan/laravel-auth-service.svg?style=flat-square)](https://packagist.org/packages/risan/laravel-auth-service)
 [![License](https://img.shields.io/packagist/l/risan/laravel-auth-service.svg?style=flat-square)](https://packagist.org/packages/risan/laravel-auth-service)
 
