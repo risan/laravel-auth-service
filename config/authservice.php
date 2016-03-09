@@ -6,7 +6,7 @@ return [
      *
      * This is an event listener class that will be used by the
      * authentication service to firing up various authentication
-     * event. Must implements AuthService\Contracts\AuthEventListener.
+     * event. Must implements AuthService\Contracts\AuthEventListenerInterface.
      */
     'auth_event_listener_class' => AuthService\AuthEventListener::class,
 
