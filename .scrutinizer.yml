@@ -3,6 +3,7 @@ filter:
     - tests/*
     - vendor/*
     - config/*
+    - src/Facades/*
 
 checks:
   php:
