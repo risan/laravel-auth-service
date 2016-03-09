@@ -1,10 +1,13 @@
 # Laravel Authentication Service
 
-[![Build Status](https://img.shields.io/travis/risan/laravel-auth-service.svg?style=flat-square)](https://travis-ci.org/risan/laravel-auth-service)
-[![HHVM Tested](https://img.shields.io/hhvm/risan/laravel-auth-service.svg?style=flat-square)](https://travis-ci.org/risan/laravel-auth-service)
-[![StyleCI](https://styleci.io/repos/48929918/shield?style=flat-square)](https://styleci.io/repos/48929918)
-[![Latest Stable Version](https://img.shields.io/packagist/v/risan/laravel-auth-service.svg?style=flat-square)](https://packagist.org/packages/risan/laravel-auth-service)
-[![License](https://img.shields.io/packagist/l/risan/laravel-auth-service.svg?style=flat-square)](https://packagist.org/packages/risan/laravel-auth-service)
+[![Build Status](https://travis-ci.org/risan/laravel-auth-service.svg?branch=master)](https://travis-ci.org/risan/laravel-auth-service)
+[![HHVM Status](http://hhvm.h4cc.de/badge/risan/laravel-auth-service.svg?style=flat)](http://hhvm.h4cc.de/package/risan/laravel-auth-service)
+[![StyleCI](https://styleci.io/repos/48929918/shield?style=flat)](https://styleci.io/repos/48929918)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/risan/laravel-auth-service/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/risan/laravel-auth-service/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/risan/laravel-auth-service/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/risan/laravel-auth-service/?branch=master)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/a3a46e27-acbf-4187-a0bd-627a672e7389.svg)](https://insight.sensiolabs.com/projects/a3a46e27-acbf-4187-a0bd-627a672e7389)
+[![Latest Stable Version](https://poser.pugx.org/risan/laravel-auth-service/v/stable)](https://packagist.org/packages/risan/laravel-auth-service)
+[![License](https://poser.pugx.org/risan/laravel-auth-service/license)](https://packagist.org/packages/risan/laravel-auth-service)
 
 Stateful authentication service provider for the latest Laravel 5.2 version.
 
@@ -52,7 +55,7 @@ Or you may also add `risan/laravel-auth-service` package into your `composer.jso
 
 ```bash
 "require": {
-  "risan/laravel-auth-service": "~1.0"
+  "risan/laravel-auth-service": "~1.1"
 }
 ```
 
@@ -113,7 +116,7 @@ return [
 
 * **auth_event_listener_class**
 
-  This configuration tells the service provider which authentication event listener class to use. By default it will use the provided `AuthService\AuthEventListener` class. However you may also override it with your own event listener implementation as long as it confronts the `AuthService\Contracts\AuthEventListener` interface.
+  This configuration tells the service provider which authentication event listener class to use. By default it will use the provided `AuthService\AuthEventListener` class. However you may also override it with your own event listener implementation as long as it confronts the `AuthService\Contracts\AuthEventListenerInterface` contract.
 
 * **login_failed_message**
 
@@ -231,7 +234,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use AuthService\Contracts\AuthService as AuthServiceContract;
+use AuthService\Contracts\AuthServiceInterface;
 
 class AuthController extends Controller
 {
@@ -242,7 +245,7 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct(AuthServiceContract $authService)
+    public function __construct(AuthServiceInterface $authService)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
 
