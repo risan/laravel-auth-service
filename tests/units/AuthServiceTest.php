@@ -5,7 +5,7 @@ use Mockery as m;
 use AuthService\AuthService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
-use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
+use AuthService\Contracts\AuthEventListenerInterface;
 
 class AuthServiceTest extends PHPUnit_Framework_TestCase {
     protected $statefulGuard;
@@ -16,7 +16,7 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
     function setUp()
     {
         $this->statefulGuard = m::mock(StatefulGuardContract::class);
-        $this->eventListener = m::mock(AuthEventListenerContract::class);
+        $this->eventListener = m::mock(AuthEventListenerInterface::class);
         $this->redirectResponse = m::mock(RedirectResponse::class);
         $this->authService = new AuthService($this->statefulGuard, $this->eventListener);
     }
@@ -35,7 +35,7 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
     /** @test */
     function auth_service_has_event_listener()
     {
-        $this->assertInstanceOf(AuthEventListenerContract::class, $this->authService->eventListener());
+        $this->assertInstanceOf(AuthEventListenerInterface::class, $this->authService->eventListener());
     }
 
     /** @test */

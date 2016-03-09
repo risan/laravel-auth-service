@@ -4,7 +4,7 @@ use Mockery as m;
 use AuthService\AuthEventListener;
 use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
-use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
+use AuthService\Contracts\AuthServiceConfigInterface;
 
 class AuthEventListenerTest extends PHPUnit_Framework_TestCase {
     protected $redirector;
@@ -15,7 +15,7 @@ class AuthEventListenerTest extends PHPUnit_Framework_TestCase {
     function setUp()
     {
         $this->redirector = m::mock(Redirector::class);
-        $this->config = m::mock(AuthServiceConfigContract::class);
+        $this->config = m::mock(AuthServiceConfigInterface::class);
         $this->redirectResponse = m::mock(RedirectResponse::class);
         $this->eventListener = new AuthEventListener($this->redirector, $this->config);
     }
@@ -34,7 +34,7 @@ class AuthEventListenerTest extends PHPUnit_Framework_TestCase {
     /** @test */
     function auth_event_listener_has_config()
     {
-        $this->assertInstanceOf(AuthServiceConfigContract::class, $this->eventListener->config());
+        $this->assertInstanceOf(AuthServiceConfigInterface::class, $this->eventListener->config());
     }
 
     /** @test */
