@@ -37,7 +37,7 @@ interface AuthServiceConfigInterface
      *
      * @param  array $config
      *
-     * @return AuthService\Contracts\AuthServiceConfigInterface
+     * @return \AuthService\Contracts\AuthServiceConfigInterface
      */
     public static function fromArray(array $config);
 }

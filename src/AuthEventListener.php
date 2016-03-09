@@ -11,22 +11,22 @@ class AuthEventListener implements AuthEventListenerInterface
     /**
      * Redirector instance.
      *
-     * @var Illuminate\Routing\Redirector
+     * @var \Illuminate\Routing\Redirector
      */
     protected $redirector;
 
     /**
      * AuthServiceConfig instance.
      *
-     * @var AuthService\Contracts\AuthServiceConfigInterface
+     * @var \AuthService\Contracts\AuthServiceConfigInterface
      */
     protected $config;
 
     /**
      * Create a new instance of AuthEventListener class.
      *
-     * @param Illuminate\Routing\Redirector $redirector
-     * @param AuthService\Contracts\AuthServiceConfigInterface $config
+     * @param \Illuminate\Routing\Redirector $redirector
+     * @param \AuthService\Contracts\AuthServiceConfigInterface $config
      */
     public function __construct(Redirector $redirector, AuthServiceConfigInterface $config)
     {
@@ -37,7 +37,7 @@ class AuthEventListener implements AuthEventListenerInterface
     /**
      * Get redirector instance.
      *
-     * @return Illuminate\Routing\Redirector
+     * @return \Illuminate\Routing\Redirector
      */
     public function redirector()
     {
@@ -47,7 +47,7 @@ class AuthEventListener implements AuthEventListenerInterface
     /**
      * Get AuthServiceConfig instance.
      *
-     * @return AuthService\Contracts\AuthServiceConfigInterface
+     * @return \AuthService\Contracts\AuthServiceConfigInterface
      */
     public function config()
     {
@@ -57,7 +57,7 @@ class AuthEventListener implements AuthEventListenerInterface
     /**
      * User has logged in successfully.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function userHasLoggedIn()
     {
@@ -68,7 +68,7 @@ class AuthEventListener implements AuthEventListenerInterface
     /**
      * User has failed to login.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function userHasFailedToLogIn()
     {
@@ -81,7 +81,7 @@ class AuthEventListener implements AuthEventListenerInterface
     /**
      * User has logged out successfully.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function userHasLoggedOut()
     {

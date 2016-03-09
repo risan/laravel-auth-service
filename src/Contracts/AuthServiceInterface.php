@@ -7,14 +7,14 @@ interface AuthServiceInterface
     /**
      * Get authentication's stateful guard instance.
      *
-     * @return Illuminate\Contracts\Auth\StatefulGuard
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     public function statefulGuard();
 
     /**
      * Get authentication's event listener instance.
      *
-     * @return AuthService\Contracts\AuthEventListenerInterface
+     * @return \AuthService\Contracts\AuthEventListenerInterface
      */
     public function eventListener();
 
@@ -24,14 +24,14 @@ interface AuthServiceInterface
      * @param  array   $credentials
      * @param  bool $remember
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function login(array $credentials, $remember = false);
 
     /**
      * Log the user out.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout();
 }

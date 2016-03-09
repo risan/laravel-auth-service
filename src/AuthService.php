@@ -11,22 +11,22 @@ class AuthService implements AuthServiceInterface
     /**
      * Authentication's stateful guard instance.
      *
-     * @var Illuminate\Contracts\Auth\StatefulGuard
+     * @var \Illuminate\Contracts\Auth\StatefulGuard
      */
     protected $statefulGuard;
 
     /**
      * Authentication's event listener instance.
      *
-     * @var AuthService\Contracts\AuthEventListenerInterface
+     * @var \AuthService\Contracts\AuthEventListenerInterface
      */
     protected $eventListener;
 
     /**
      * Create a new instance of AuthService class.
      *
-     * @param Illuminate\Contracts\Auth\StatefulGuard $statefulGuard
-     * @param AuthService\Contracts\AuthEventListenerInterface $eventListener
+     * @param \Illuminate\Contracts\Auth\StatefulGuard $statefulGuard
+     * @param \AuthService\Contracts\AuthEventListenerInterface $eventListener
      */
     public function __construct(StatefulGuardContract $statefulGuard, AuthEventListenerInterface $eventListener)
     {
@@ -37,7 +37,7 @@ class AuthService implements AuthServiceInterface
     /**
      * Get authentication's stateful guard instance.
      *
-     * @return Illuminate\Contracts\Auth\StatefulGuard
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     public function statefulGuard()
     {
@@ -47,7 +47,7 @@ class AuthService implements AuthServiceInterface
     /**
      * Get authentication's event listener instance.
      *
-     * @return AuthService\Contracts\AuthEventListenerInterface
+     * @return \AuthService\Contracts\AuthEventListenerInterface
      */
     public function eventListener()
     {
@@ -60,7 +60,7 @@ class AuthService implements AuthServiceInterface
      * @param  array   $credentials
      * @param  bool $remember
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function login(array $credentials, $remember = false)
     {
@@ -74,7 +74,7 @@ class AuthService implements AuthServiceInterface
     /**
      * Log the user out.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
     {
