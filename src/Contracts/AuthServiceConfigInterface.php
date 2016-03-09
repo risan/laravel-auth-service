@@ -2,7 +2,7 @@
 
 namespace AuthService\Contracts;
 
-interface AuthServiceConfig
+interface AuthServiceConfigInterface
 {
     /**
      * Authentication event listener class.
@@ -37,7 +37,7 @@ interface AuthServiceConfig
      *
      * @param  array $config
      *
-     * @return AuthService\Contracts\AuthServiceConfig
+     * @return AuthService\Contracts\AuthServiceConfigInterface
      */
     public static function fromArray(array $config);
 }

@@ -2,10 +2,10 @@
 
 namespace AuthService;
 
-use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
+use AuthService\Contracts\AuthServiceConfigInterface;
 use InvalidArgumentException;
 
-class AuthServiceConfig implements AuthServiceConfigContract
+class AuthServiceConfig implements AuthServiceConfigInterface
 {
     /**
      * Authentication event listener class.
@@ -96,7 +96,7 @@ class AuthServiceConfig implements AuthServiceConfigContract
      *
      * @param  array $config
      *
-     * @return AuthService\Contracts\AuthServiceConfig
+     * @return AuthService\Contracts\AuthServiceConfigInterface
      */
     public static function fromArray(array $config)
     {

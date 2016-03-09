@@ -13,6 +13,6 @@ class AuthService extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'AuthService\Contracts\AuthService';
+        return 'AuthService\Contracts\AuthServiceInterface';
     }
 }

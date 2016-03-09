@@ -2,7 +2,7 @@
 
 namespace AuthService\Contracts;
 
-interface AuthService
+interface AuthServiceInterface
 {
     /**
      * Get authentication's stateful guard instance.
@@ -14,7 +14,7 @@ interface AuthService
     /**
      * Get authentication's event listener instance.
      *
-     * @return AuthService\Contracts\AuthEventListener
+     * @return AuthService\Contracts\AuthEventListenerInterface
      */
     public function eventListener();
 

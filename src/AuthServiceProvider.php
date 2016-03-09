@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthServiceConfig()
     {
-        $this->app->singleton('AuthService\Contracts\AuthServiceConfig', function ($app) {
+        $this->app->singleton('AuthService\Contracts\AuthServiceConfigInterface', function ($app) {
             return \AuthService\AuthServiceConfig::fromArray($app['config']->get('authservice'));
         });
     }
@@ -56,9 +56,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthEventListener()
     {
-        $this->app->singleton('AuthService\Contracts\AuthEventListener', function ($app) {
+        $this->app->singleton('AuthService\Contracts\AuthEventListenerInterface', function ($app) {
             $redirector = $app['redirect'];
-            $config = $app->make('AuthService\Contracts\AuthServiceConfig');
+            $config = $app->make('AuthService\Contracts\AuthServiceConfigInterface');
             $eventListenerClass = $config->authEventListenerClass();
 
             return new $eventListenerClass($redirector, $config);
@@ -72,9 +72,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthService()
     {
-        $this->app->singleton('AuthService\Contracts\AuthService', function ($app) {
+        $this->app->singleton('AuthService\Contracts\AuthServiceInterface', function ($app) {
             $statefulGuard = $app['auth']->guard();
-            $eventListener = $app->make('AuthService\Contracts\AuthEventListener');
+            $eventListener = $app->make('AuthService\Contracts\AuthEventListenerInterface');
 
             return new \AuthService\AuthService($statefulGuard, $eventListener);
         });
@@ -88,9 +88,9 @@ class AuthServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'AuthService\Contracts\AuthServiceConfig',
-            'AuthService\Contracts\AuthEventListener',
-            'AuthService\Contracts\AuthService',
+            'AuthService\Contracts\AuthServiceConfigInterface',
+            'AuthService\Contracts\AuthEventListenerInterface',
+            'AuthService\Contracts\AuthServiceInterface',
         ];
     }
 }

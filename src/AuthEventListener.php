@@ -2,11 +2,11 @@
 
 namespace AuthService;
 
-use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
-use AuthService\Contracts\AuthServiceConfig as AuthServiceConfigContract;
+use AuthService\Contracts\AuthEventListenerInterface;
+use AuthService\Contracts\AuthServiceConfigInterface;
 use Illuminate\Routing\Redirector;
 
-class AuthEventListener implements AuthEventListenerContract
+class AuthEventListener implements AuthEventListenerInterface
 {
     /**
      * Redirector instance.
@@ -18,7 +18,7 @@ class AuthEventListener implements AuthEventListenerContract
     /**
      * AuthServiceConfig instance.
      *
-     * @var AuthService\Contracts\AuthServiceConfig
+     * @var AuthService\Contracts\AuthServiceConfigInterface
      */
     protected $config;
 
@@ -26,9 +26,9 @@ class AuthEventListener implements AuthEventListenerContract
      * Create a new instance of AuthEventListener class.
      *
      * @param Illuminate\Routing\Redirector $redirector
-     * @param AuthService\Contracts\AuthServiceConfig $config
+     * @param AuthService\Contracts\AuthServiceConfigInterface $config
      */
-    public function __construct(Redirector $redirector, AuthServiceConfigContract $config)
+    public function __construct(Redirector $redirector, AuthServiceConfigInterface $config)
     {
         $this->redirector = $redirector;
         $this->config = $config;
@@ -47,7 +47,7 @@ class AuthEventListener implements AuthEventListenerContract
     /**
      * Get AuthServiceConfig instance.
      *
-     * @return AuthService\Contracts\AuthServiceConfig
+     * @return AuthService\Contracts\AuthServiceConfigInterface
      */
     public function config()
     {

@@ -2,7 +2,7 @@
 
 namespace AuthService\Contracts;
 
-interface AuthEventListener
+interface AuthEventListenerInterface
 {
     /**
      * Get redirector instance.
@@ -14,7 +14,7 @@ interface AuthEventListener
     /**
      * Get AuthServiceConfig instance.
      *
-     * @return AuthService\Contracts\AuthServiceConfig
+     * @return AuthService\Contracts\AuthServiceConfigInterface
      */
     public function config();
 

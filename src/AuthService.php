@@ -2,11 +2,11 @@
 
 namespace AuthService;
 
-use AuthService\Contracts\AuthEventListener as AuthEventListenerContract;
-use AuthService\Contracts\AuthService as AuthServiceContract;
+use AuthService\Contracts\AuthEventListenerInterface;
+use AuthService\Contracts\AuthServiceInterface;
 use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
 
-class AuthService implements AuthServiceContract
+class AuthService implements AuthServiceInterface
 {
     /**
      * Authentication's stateful guard instance.
@@ -18,7 +18,7 @@ class AuthService implements AuthServiceContract
     /**
      * Authentication's event listener instance.
      *
-     * @var AuthService\Contracts\AuthEventListener
+     * @var AuthService\Contracts\AuthEventListenerInterface
      */
     protected $eventListener;
 
@@ -26,9 +26,9 @@ class AuthService implements AuthServiceContract
      * Create a new instance of AuthService class.
      *
      * @param Illuminate\Contracts\Auth\StatefulGuard $statefulGuard
-     * @param AuthService\Contracts\AuthEventListener $eventListener
+     * @param AuthService\Contracts\AuthEventListenerInterface $eventListener
      */
-    public function __construct(StatefulGuardContract $statefulGuard, AuthEventListenerContract $eventListener)
+    public function __construct(StatefulGuardContract $statefulGuard, AuthEventListenerInterface $eventListener)
     {
         $this->statefulGuard = $statefulGuard;
         $this->eventListener = $eventListener;
@@ -47,7 +47,7 @@ class AuthService implements AuthServiceContract
     /**
      * Get authentication's event listener instance.
      *
-     * @return AuthService\Contracts\AuthEventListener
+     * @return AuthService\Contracts\AuthEventListenerInterface
      */
     public function eventListener()
     {
